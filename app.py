@@ -91,6 +91,10 @@ def request_for_blood():
 def user_homepage():
     return render_template("user_homepage.html")
 
+@app.route("/upload_health")
+def upload_health():
+    return render_template("upload_health.html")
+
 @app.route("/hospital_homepage")
 def hospital_homepage():
     return render_template("hospital_homepage.html")
