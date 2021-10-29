@@ -47,7 +47,7 @@
       </nav>
       <br><br><br>
     <H1>User Registration</H1>
-    <form action="/user_registration" method="POST">
+    <form action="/user_registration" method="POST" id="form" onsubmit="f()">
         <label for="fname">First Name:</label><br>
         <input type="text" id="fname" name="fname" placeholder="Enter your First name"><br><br>
         <label for="lname">Last Name:</label><br>
@@ -64,7 +64,15 @@
         <input type="text" name="aadharno" pattern="[0-9]*" minlength="12" maxlength="12" ><span id="numb" required></span><br> <br>
         <input type="submit">
     </form>
-
+    <!-- {% if ruid>0%}
+    <h3>Welcome your user id is : {{ruid}}</h3>
+    {% endif%} -->
 </body>
+<script>
+  function f()
+    {
+      open("/user_homepage");
+    }
+</script>
 </html>
         
