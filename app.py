@@ -18,6 +18,15 @@ class users_db(db.Model):
     def __repr__(self) -> str:
         return f"{self.uid} - {self.ufname}"
 
+class appointments(db.Model):
+    uid=db.Column(db.Integer,db.ForeignKey('users_db.uid'),primary_key=True)
+    name=db.Column(db.String(200),nullable=True)
+    state=db.Column(db.String(200),nullable=True)
+    city=db.Column(db.String(200),nullable=True)
+    hospital=db.Column(db.String(100),nullable=True)
+    date=db.Column(db.String(100),nullable=True)
+    def __repr__(self) -> str:
+        return f"{self.uid} - {self.ufname}"
 
 
 @app.route("/")
@@ -41,6 +50,21 @@ def user_registration():
         db.session.commit()
     return render_template("user_registration.html",ruid=ruid)
 
+@app.route("/book_appointments",methods=['GET','POST'])
+def appointment_details():
+    if request.method=="POST":
+        uid=request.form['uid']
+        name=request.form['name']
+        state=request.form['state']
+        city=request.form['city']
+        hospital=request.form['hospital']
+        date=str(request.form['meeting'])
+        print(city)
+        appointment=appointments(uid=uid,name=name,state=state,city=city,hospital=hospital,date=date)
+        db.session.add(appointment)
+        db.session.commit()
+    return render_template("appointment_details.html")
+
 @app.route("/user_login",methods=['GET','POST'])
 def user_login():
     if request.method=="POST":
@@ -58,9 +82,10 @@ def user_login():
 def hospital_login():
     return render_template("hospital_login.html")
 
-@app.route("/book_appointments")
-def appointment_details():
-    return render_template("appointment_details.html")
+
+@app.route("/request_for_blood")
+def request_for_blood():
+    return render_template("blood_request.html")
 
 @app.route("/user_homepage")
 def user_homepage():
@@ -70,9 +95,9 @@ def user_homepage():
 def hospital_homepage():
     return render_template("hospital_homepage.html")
 
-@app.route("/request_for_blood")
-def request_for_blood():
-    return "<h1>This is under development</h1>"
+# @app.route("/request_for_blood")
+# def request_for_blood():
+#     return "<h1>This is under development</h1>"
 
 @app.route("/patient_search",methods=['GET','POST'])
 def patient_search():
@@ -80,9 +105,19 @@ def patient_search():
     if request.method=="POST":
         name=request.form['name']
         users= users_db.query.filter_by(ufname=name)
-        # users= users_db.query.all()
+        # users= users_db.query(users_db.uid,users_db.ufname,users_db.ulname,users_db.umobile,users_db.uaadhar,appointments.state,appointments.city,appointments.hospital,appointments.date).join(users_db).join(appointments).filter_by(users_db.ufname==name)
         return render_template("patient_search.html",users=users)
     return render_template("patient_search.html")
+
+@app.route("/patient_appointments_search",methods=['GET','POST'])
+def patient_appointments_search():
+    usr={}
+    if request.method=="POST":
+        name=request.form['name']
+        appointment= appointments.query.filter_by(name=name)
+        # users= users_db.query(users_db.uid,users_db.ufname,users_db.ulname,users_db.umobile,users_db.uaadhar,appointments.state,appointments.city,appointments.hospital,appointments.date).join(users_db).join(appointments).filter_by(users_db.ufname==name)
+        return render_template("patient_appointments_search.html",appo=appointment)
+    return render_template("patient_appointments_search.html")
 
 @app.route("/show")
 def show():
