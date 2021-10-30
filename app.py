@@ -28,6 +28,14 @@ class appointments(db.Model):
     def __repr__(self) -> str:
         return f"{self.uid} - {self.ufname}"
 
+class blood(db.Model):
+    uid=db.Column(db.Integer,primary_key=True)
+    ufname=db.Column(db.String(200),nullable=True)
+    ublood=db.Column(db.String(12),nullable=True)
+    ustate=db.Column(db.String(200),nullable=True)
+    ucity=db.Column(db.String(200),nullable=True)
+    def __repr__(self) -> str:
+        return f"{self.uid} - {self.ufname}"
 
 @app.route("/")
 def hello_world():
@@ -83,13 +91,27 @@ def hospital_login():
     return render_template("hospital_login.html")
 
 
-@app.route("/request_for_blood")
+@app.route("/request_for_blood",methods=['GET','POST'])
 def request_for_blood():
+    if request.method=="POST":
+        uid=request.form['phid']
+        ufname=request.form['pname']
+        ublood=request.form['pblood']
+        ustate=request.form['state']
+        ucity=request.form['city']
+        bloods=blood(ufname=ufname,uid=uid,ublood=ublood,ustate=ustate,ucity=ucity)
+        db.session.add(bloods)
+        db.session.commit()      
     return render_template("blood_request.html")
 
 @app.route("/user_homepage")
 def user_homepage():
     return render_template("user_homepage.html")
+
+@app.route("/blood_search")
+def blood_search():
+    users= blood.query.all()
+    return render_template("blood_search.html",bg=users)
 
 @app.route("/upload_health")
 def upload_health():

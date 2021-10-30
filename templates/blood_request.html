@@ -67,7 +67,7 @@
                       <div class="col-md-6 col-lg-7 d-flex align-items-center">
                         <div class="card-body p-4 p-lg-5 text-black">
           
-                          <form action="/user_login" method="POST" onsubmit="f();">
+                          <form action="/request_for_blood" method="POST" onsubmit="f();">
           
                             <div class="d-flex align-items-center mb-3 pb-1">
                               <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -84,20 +84,20 @@
                               <label class="form-label" for="phid">Health ID :</label>
                             </div>
                             <label for="pbloodgroup">Blood Group:</label><br>
-                             <select id="pbloodgroup">
-                              <option>A Positive</option>
-                              <option>A Negative</option>
-                              <option>A Unknown</option>
-                              <option>B Positive</option>
-                              <option>B Negative</option>
-                              <option>B Unknown</option>
-                              <option>AB Positive</option>
-                              <option>AB Negative</option>
-                              <option>AB Unknown</option>
-                              <option>O Positive</option>
-                              <option>O Negative</option>
-                              <option>O Unknown</option>
-                              <option>Unknown</option>
+                             <select id="pbloodgroup" name="pblood">
+                              <option value="A+">A Positive</option>
+                              <option value="A-">A Negative</option>
+                              <option value="A">A Unknown</option>
+                              <option value="B+">B Positive</option>
+                              <option  value="B-">B Negative</option>
+                              <option  value="B">B Unknown</option>
+                              <option  value="AB+">AB Positive</option>
+                              <option  value="AB">AB Negative</option>
+                              <option  value="AB">AB Unknown</option>
+                              <option  value="O+">O Positive</option>
+                              <option  value="O+">O Negative</option>
+                              <option  value="O">O Unknown</option>
+                              <option  value="unknown">Unknown</option>
                             </select>
                             <br><br>
                             <label for="state">State:</label><br>
@@ -142,7 +142,7 @@
 
                               <br><br>
                             <label for="pcity">City:</label><br>
-                            <input type="text" id="city" value="Hydrabad"><br><br>
+                            <input type="text" id="city" name="city" value="Hydrabad"><br><br>
                             <br><br>         
 
                             <div class="pt-1 mb-4">
