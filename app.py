@@ -101,7 +101,8 @@ def request_for_blood():
         ucity=request.form['city']
         bloods=blood(ufname=ufname,uid=uid,ublood=ublood,ustate=ustate,ucity=ucity)
         db.session.add(bloods)
-        db.session.commit()      
+        db.session.commit()   
+        return render_template("blood_request.html")   
     return render_template("blood_request.html")
 
 @app.route("/user_homepage")
