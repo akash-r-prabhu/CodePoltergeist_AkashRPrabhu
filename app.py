@@ -129,9 +129,13 @@ def hospital_homepage():
 @app.route("/patient_search",methods=['GET','POST'])
 def patient_search():
     usr={}
+    name=''
     if request.method=="POST":
         name=request.form['name']
-        users= users_db.query.filter_by(ufname=name)
+        if(name ==''):
+            users= users_db.query.all()
+        else:
+            users= users_db.query.filter_by(ufname=name)
         # users= users_db.query(users_db.uid,users_db.ufname,users_db.ulname,users_db.umobile,users_db.uaadhar,appointments.state,appointments.city,appointments.hospital,appointments.date).join(users_db).join(appointments).filter_by(users_db.ufname==name)
         return render_template("patient_search.html",users=users)
     return render_template("patient_search.html")
@@ -139,9 +143,13 @@ def patient_search():
 @app.route("/patient_appointments_search",methods=['GET','POST'])
 def patient_appointments_search():
     usr={}
+    name=''
     if request.method=="POST":
         name=request.form['name']
-        appointment= appointments.query.filter_by(name=name)
+        if(name ==''):
+            appointment= appointments.query.all()
+        else: 
+            appointment= appointments.query.filter_by(name=name)
         # users= users_db.query(users_db.uid,users_db.ufname,users_db.ulname,users_db.umobile,users_db.uaadhar,appointments.state,appointments.city,appointments.hospital,appointments.date).join(users_db).join(appointments).filter_by(users_db.ufname==name)
         return render_template("patient_appointments_search.html",appo=appointment)
     return render_template("patient_appointments_search.html")
