@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,15 +14,25 @@
     margin-left:40px;
 
   }
+  .button {
+          background-color: #0057f8;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
 </style>
 
 </head>
-<h1 align="center">
-  <b></b> <i> PATIENT HEALTH DATA</i></b>  <br> <br> 
-</h1>
 
 
-<body>
+
+<body style="background-color: #9A616D;" >
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Health City</a>
@@ -33,9 +44,13 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+          
           <li class="nav-item">
+            
             <a class="nav-link" href="/user_registration">User Registration</a>
+          
           </li>
+        
           <li class="nav-item">
             <a class="nav-link" href="/user_login">User Login</a>
           </li>
@@ -46,8 +61,15 @@
       </div>
     </div>
 </nav>
+<br><br>
+<!-- <center> -->
+<section ></section>
+<h1 align="center" style="color: white;">
+  <b></b>  PATIENT HEALTH DATA</b>  <br> <br> 
+</h1>
+
 <form onsubmit="health_status()">
-    <p class="input-group-text" width=30>Patient Details</p>
+    <p class="input-group-text" width=30 style="margin-left: 2vw; margin-right: 25vw;">Patient Details</p>
     <div class="input-group">
         <span class="input-group-text" width=20>Name</span> <br>
         <input type="text" aria-label="name" class="form-control">
@@ -65,10 +87,10 @@
                 <input type="text" aria-label="age" class="form-control">
             </div>
             <br>
-            <p class="input-group-text" width=35>Health Details</p>
+            <p class="input-group-text" width=35 style="margin-left: 2vw; margin-right: 25vw;">Health Details</p>
     <div class="input-group">
         <span class="input-group-text" width=35>RBC</span> <br>
-        <input type="text" aria-label="rbc" class="form-control" placeholder="120/90">
+        <input type="text" aria-label="rbc" class="form-control" >
         <input type="text" aria-label="rbcunit" class="form-control" value="10^6/uL">
       </div>
       
@@ -87,7 +109,7 @@
       <br>
       <div class="input-group">
         <span class="input-group-text" width=25>Blood Pressure</span> <br>
-        <input type="text"  id="bp1"aria-label="bp" class="form-control">
+        <input type="text"  id="bp1"aria-label="bp" class="form-control" placeholder="120/90">
         <input type="text"  id="bp2" aria-label="bpunit" class="form-control" value="mmHg">
       </div>
       
@@ -111,14 +133,20 @@
         <input type="text" id="height2"aria-label="heightunit" class="form-control" value="M">
       </div>
      <br> 
-     <button  class="input-group-text" width=25 type="submit" value="Submit">Upload</button>
+     <center><button  class="input-group-text button" width=25 type="submit" value="Submit" >Upload</button></center>
      <br> <br>
 </form>
-
+</section>
+<!-- </center> -->
 <script>
 
 function health_status()
 { 
+  let no_of_healthy_people;
+  let no_of_people;
+  localStorage.setItem("healthpeople", no_of_healthy_people);
+  localStorage.setItem("totalpop", no_of_people);
+  no_of_people++;
   var health_status=0;
   var weight=document.getElementById("wgt1").value;
   var ht=document.getElementById("height1").value;
@@ -164,7 +192,7 @@ else {
 if(health_status>=4)
 {
   alert("Good health in general, if any problems arise please contact the doctors!");
-
+  no_of_healthy_people++;
 }
 else if(health_status>=2)
 {
@@ -174,7 +202,6 @@ else if(health_status>=2)
 else 
 {alert("Bad Health! Pls get immediate attention from a doctor! Call XXX-XXX-XXX ");
 }
-alert("Successfufully uploaded data")
 print();
 }
 
